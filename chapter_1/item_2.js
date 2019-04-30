@@ -34,9 +34,21 @@ typeof -2.1;  // number
 // input
 // 8 as a 32bit integer is
 // 00000000000000000000000000001000
+
 // 1 as a 32bit integer is
 // 00000000000000000000000000000001
+
 // OR results in 1001 which is 9 in decimal
 // 00000000000000000000000000001001
+// leading zero's are unnescessary since they do not alter the result
 
 parseInt("1001", 2);  //9
+
+
+// take caution when using floats, as rounding errors can be cumulative
+0.1 + 0.2;  // 0.30000000000000004
+
+// real numbers are associative, but its not always the case in js
+// (x + y) + z = x + (y + z)
+(0.1 + 0.2) + 0.3;  // 0.6000000000000001 
+0.1 + (0.2 + 0.3);  // 0.6
