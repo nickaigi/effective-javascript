@@ -69,6 +69,37 @@ function isReallyNaN(x){
     return x !== x;
 }
 
+// objects can be coerced to primitives, often used for converting strings
+"the Math object: " + Math; // "the Math object: [object Math]"
+
+"the JSON object: " + JSON; // "the JSON object: [object JSON]"
+
+
+// objects are converted to strings by implicitly calling their 'toString' method
+Math.toString();  // "[object Math]"
+JSON.toString();  // "[object JSON]"
+
+
+// similarly, objects can be converted to numbers via their 'valueOf' method
+"J" + { toString: function() { return "S"; } }; // "JS"
+2 * { valueOf: function() { return 3; }};       // 6
+
+// things get tricky when you consider that '+' is overloaded
+// an object contains both 'toString' and 'valueOf'
+// its not obvious which method '+' should call.
+// Javascript blindly chooses 'valueOf' over 'toString' which can lead to unexpected behaviour
+
+var obj = {
+    toString: function(){
+        return "[object MyObject]";
+    },
+    valueOf: function(){
+        return 17;
+    }
+};
+
+"object: " + obj; // "object: 17"
+// its best to avoid 'valueOf'
 
 // truthiness:
 // most js values are 'truthy' that is implicitly coerced to true.
