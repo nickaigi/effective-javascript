@@ -27,6 +27,16 @@ typeof -2.1;  // number
 8 | 1; // 9
 
 (8).toString(2) // 1000
-// toString specifies the radix, 2, indicating binary representation
+(1).toString(2) // 1
 
-// Js represents the
+// toString specifies the radix, 2, indicating binary representation
+// bitwise OR combines the bit sequences by keeping any 1 bits found in either
+// input
+// 8 as a 32bit integer is
+// 00000000000000000000000000001000
+// 1 as a 32bit integer is
+// 00000000000000000000000000000001
+// OR results in 1001 which is 9 in decimal
+// 00000000000000000000000000001001
+
+parseInt("1001", 2);  //9
