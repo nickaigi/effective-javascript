@@ -26,8 +26,8 @@ typeof -2.1;  // number
 // bitwise arithmetic operators are special
 8 | 1; // 9
 
-(8).toString(2) // 1000
-(1).toString(2) // 1
+(8).toString(2); // 1000
+(1).toString(2); // 1
 
 // toString specifies the radix, 2, indicating binary representation
 // bitwise OR combines the bit sequences by keeping any 1 bits found in either
