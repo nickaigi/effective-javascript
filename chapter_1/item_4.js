@@ -17,4 +17,8 @@ typeof "hello"  // string
 // using built-in operators
 var s1 = new String("hello");
 var s2 = new String("hello");
+
+// each String object is a separate object, therefore only equal to its self
 s1 === s2; //fasle
+
+"hello".toUpperCase();    // "HELLO"
