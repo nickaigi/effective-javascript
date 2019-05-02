@@ -35,3 +35,13 @@ console.log(foo);     // "global foo"
 this.foo = "changed";
 console.log(foo);     // "changed"
 
+// item 9: always declare local variables
+// avoid unintentional global variables
+// forgetting to declare a local variable silently turns it into a global var
+function swap(a, i, j) {
+    // not adding 'var' before variable name, leads to accidental creation of a
+    // global var
+    temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+}
