@@ -2,9 +2,13 @@
 // Notes: undersstanding closures requires learning three essential facts
 //  1. JavaScript allows you to refer to variables that were defined outside of
 //     the current function.
+//
 //  2. Functions can refer to variables defined in outer functions even after
 //     those outer functions have returned.
 //     -- Note: functions are first class objects
+//
+//  3. Closures can update the values of outer variables since they store
+//     references to their outer variables, than copying their values
 function makeSandwich() {
     var magicIngredient = "peanut butter";
     function make(filling) {
@@ -48,3 +52,19 @@ hamAnd("mustard");            // "ham and mustard"
 var turkeyAnd = bestSandwichMaker("turkey");
 turkeyAnd("Swiss");           // "turkey and Swiss"
 turkeyAnd("Provolone");       // "turkey and Provolone"
+
+// fact #3
+function box() {
+    var val = undefined;
+    return {
+        set: function(newVal) { val = newVal; },
+        get: function() { return val; },
+        type: function() { return typeof val; }
+    };
+}
+
+var b = box();
+b.type();  // "undefined"
+b.set(98.6);
+b.get();  // 98.6
+b.type(); // "number"
