@@ -29,6 +29,9 @@ newt.setScore(15);
 
 var players = [nick, tom, newt];
 
+var nate = new Player("nate");
+nate.setScore(5);
+
 function isWinner(player, others) {
     var highest = 0;
     for (var i = 0, n = others.length; i < n; i++) {
