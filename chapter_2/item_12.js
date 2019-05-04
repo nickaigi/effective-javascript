@@ -42,3 +42,50 @@ function isWinner(player, others) {
     }
     return player.score > highest;
 }
+
+// JavaScript variables are 'function-scoped' rather than 'bock-scoped',
+// the inner declaration of 'player' simply redeclares a var that was already
+// in scope
+// Each loop iteration overwrites the same variable, the return statement sees
+// 'player' as the last element of 'others' instead of the function's original
+// 'player' arg
+function trimSection(header, body, footer) {
+    for (var i = 0, n = header.length; i < n; i++) {
+        header[i] = header[i].trim();
+    }
+    for (var i = 0, n = body.length; i < n; i++) {
+        body[i] = body[i].trim();
+    }
+    for (var i = 0, n = footer.length; i < n; i++) {
+        footer[i] = footer[i].trim();
+    }
+}
+
+// notice redefination of i and n
+// after hoisting, it would be equivalent to
+function trimSectionNew(header, body, footer) {
+    var i, n;
+    for (i = 0, n = header.length; i < n; i++) {
+        header[i] = header[i].trim();
+    }
+    for (i = 0, n = body.length; i < n; i++) {
+        body[i] = body[i].trim();
+    }
+    for (i = 0, n = footer.length; i < n; i++) {
+        footer[i] = footer[i].trim();
+    }
+}
+
+// exception to JavaScript lack of block scopoing is in 'exceptions
+function test() {
+    var x = "var", result = [];
+    result.push(x);
+    try {
+        throw "exception";
+    } catch (x) {
+        x = "catch";  // here x is block scoped to the catch only
+    }
+    result.push(x);
+    return result;
+}
+test(); // ["var", "var"]
