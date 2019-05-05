@@ -41,3 +41,21 @@ test(true);  // ["local", "local"]
 // then js does not bind f to the local function
 // Nick -> why doesn't the global f() execute instead??
 test(false); // ["local"]
+
+// best way to tackle this is
+function f() { return "global"; }
+
+function test(x) {
+    var g = f, result = [];
+    if (x) {
+        g = function () { return "local"; } 
+
+        result.push(g());
+    }
+    result.push(g());
+    return result;
+}
+
+test(true);  // ["local", "local"]
+
+test(false);   // ["global"]
