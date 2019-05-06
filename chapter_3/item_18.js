@@ -20,3 +20,14 @@ var obj = {
 };
 
 obj.hello(); // "hello, Kalistos"
+
+// functions as a constructor
+function User(name, passwordHash) {
+    this.name = name;
+    this.passwordHash = passwordHash;
+}
+
+// invoking User with the 'new' operator treats it as a constructor
+var u = new User("pkalistos", "0ef33ae791068ec64b502d6cb0191387");
+
+u.name;  // "pkalistos"
