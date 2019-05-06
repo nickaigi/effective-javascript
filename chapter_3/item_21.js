@@ -58,3 +58,19 @@ average.apply(null, scores);               // 23.666666666666668
 
 // equivalent to: if scores had 3 items
 average(scores[0], scores[1], scores[2]);  // 23.666666666666668
+
+var buffer = {
+    state: [],
+    append: function() {
+        for (var i = 0, n = arguments.length; i < n; i++) {
+            this.state.push(arguments[i]);
+        }
+    }
+};
+
+buffer.append("hello, ");
+buffer.append("Nickson", " ", "Kaigi", "!");
+buffer.append("\n");
+
+// could be written as
+buffer.append.apply(buffer, ["Hello, ", "Nickson", " ", "Kaigi", "!", "\n"]);
