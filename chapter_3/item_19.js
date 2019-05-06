@@ -51,3 +51,51 @@ var names = ["Nick", "Anne", "Zawadi"];
 var upper = names.map(function(name) {
     return name.toUpperCase();
 });
+
+
+var aIndex = "a".charCodeAt(0);  // 97
+
+var alphabet = "";
+for (var i = 0; i < 26; i++) {
+    alphabet += String.fromCharCode(aIndex + i);
+}
+
+alphabet;  // "abcdefghijklmnopqrstuvwxyz"
+
+var digits = "";
+for (var i = 0; i < 10; i++) {
+    digits += i;
+}
+
+digits; // "0123456789"
+
+var random = "";
+for (var i = 0; i < 8; i++) {
+    random += String.fromCharCode(Math.floor(Math.random() * 26) + aIndex);
+}
+
+random; // "veqmbzln" varies with each call
+
+function buildString(n, callback) {
+    var result = "";
+    for (var i = 0; i < n; i++) {
+        result += callback(i);
+    }
+    return result;
+}
+
+var alphabet = buildString(26, function(i) {
+    return String.fromCharCode(aIndex + i);
+});
+
+alphabet;  // "abcdefghijklmnopqrstuvwxyz"
+
+var digits = buildString(10, function(i) { return i; });
+
+digits; // "0123456789"
+
+var random = buildString(8, function() {
+    return String.fromCharCode(Math.floor(Math.random() * 26) + aIndex);
+});
+
+random; // "xvoxvyfo"
