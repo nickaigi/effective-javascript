@@ -28,6 +28,13 @@
 //
 // 'apply' takes a first arg that specifies the binding of this for the function
 // being called
+function averageOfArray(a) {
+    for (var i =0, sum = 0, n = a.length; i < n; i++) {
+        sum += a[i];
+    }
+    return sum / n;
+}
+
 function Student(name, score){
     this.name = name;
     this.score = score;
@@ -45,8 +52,7 @@ function getAllScores() {
 }
 
 function average() {
-    var result = 0, len = arguments.length;
-    for (var i = 0; i < len; i++) {
+    for (var i = 0, result = 0, len = arguments.length; i < len; i++) {
         result += arguments[i];
     }
     return result / len;
@@ -74,3 +80,18 @@ buffer.append("\n");
 
 // could be written as
 buffer.append.apply(buffer, ["Hello, ", "Nickson", " ", "Kaigi", "!", "\n"]);
+
+
+// A good rule of thumb is that whenever you provide a variable-arity function
+// for convenience, you should also provide a fixed-arity version that takes
+// an explicit array.
+//
+// Easy, implement the variadic function as a small wrapper that delegates to
+// the fixed-arity version:
+
+function average() {
+    return averageOfArray(arguments);
+}
+
+// consumers of your functions don't have to use 'apply' which can be
+// less readable and often carries a perfomance cost!
