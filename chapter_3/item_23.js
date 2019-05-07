@@ -21,7 +21,8 @@ var obj = {
     add: function(x, y) { return x + y; }
 };
 
-callMethod(obj, "add", 17, 25);
+// callMethod(obj, "add", 17, 25);
+//
 // Uncaught TypeError: Cannot read property 'apply' of undefined
 //
 // fails because 'arguments' object is not a copy of the function's arguments
@@ -54,3 +55,25 @@ strict("unmodified");    // false
 // why does this happen?
 // x = "unmodified" and arguments[0] = "unmodified"
 nostrict("unmodified");  // true
+
+// never modify 'arguments' object, but you can copy it
+// var ags = [].slice.call(arguments);
+// array.slice() method returns a shallow copy of a portion of an array into a
+// new array object selected from 'begin' to 'end' ('end' not included)
+// original array will not be modified
+
+var animals = ["ant", "bison", "camel", "duck", "elephant"];
+animals.slice(2);    // ["camel", "duck", "elephant"]
+
+animals.slice(2, 4); // ["camel", "duck"]
+
+animals.slice(1, 5); // ["bison", "camel", "duck", "elephant"]
+
+animals.slice();     // ["ant", "bison", "camel", "duck", "elephant"]
+
+
+function callMethod(obj, method) {
+    var args = [].slice.call(arguments, 2);
+    return obj[method].apply(obj, args);
+}
+
