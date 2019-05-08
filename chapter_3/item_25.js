@@ -11,4 +11,7 @@ var buffer = {
 };
 
 var source = ["867", "-", "5309"];
-source.forEach(buffer.add); // error
+// source.forEach(buffer.add); // error
+// fails because 'forEach' uses the global object as the receiver.
+// fix
+source.forEach(buffer.add, buffer);
