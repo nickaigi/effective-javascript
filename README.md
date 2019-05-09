@@ -17,3 +17,5 @@ David Herman's [code](https://github.com/effectivejs/code)
 - [Iterator Protocol](chapter_3/item_24.js)
 
 - [Currying](chapter_3/item_26.js)
+
+- [toString method of Functions](chapter_3/item_27.js)
