@@ -8,6 +8,8 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 ## Fun:
 
+- [Closures](chapter_2/item_11.js)
+
 - [Higher-Order Functions](chapter_3/item_19.js)
 
 - [Variadic Functions](chapter_3/item_22.js)
