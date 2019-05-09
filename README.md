@@ -18,4 +18,6 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 - [Currying](chapter_3/item_26.js)
 
-- [toString method of Functions](chapter_3/item_27.js)
+- [toString method of Functions](chapter_3/item_28.js)
+
+- [arguments.callee and arguments.caller](chapter_3/item_29.js)
