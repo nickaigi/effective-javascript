@@ -34,3 +34,42 @@ function start() {
 }
 
 start() === start; // true
+
+// it is tempting to try to use this property to extract a 'stack trace'
+function getCallStack() {
+    var stack = [];
+    for (var f = getCallStack.caller; f; f = f.caller) {
+        stack.push(f);
+    }
+    return stack;
+}
+
+// for simple call stacks, 'getCallStack' appears to work fine
+function f1() {
+    return getCallStack();
+}
+
+function f2() {
+    return f1();
+}
+
+var trace = f2()
+trace; //  [f1, f2]
+
+// 'getCallStack' can easily be broken: if the function shows up more than once
+// in the call stack, the stack inspection logic gets stuck in a loop
+
+function f(n) {
+    return n === 0 ? getCallStack() : f(n - 1);
+}
+
+var trace = f(1); // infinite loop, because of recursive calls to f
+
+// ES5 strict functions does not allow accesses to 'caller' or 'callee'
+
+function f() {
+    "use strict";
+    return f.caller;
+}
+
+f(); // error: caller may not be accessed on strict functions
