@@ -18,29 +18,18 @@
 
 
 // make use of Ceasar cipher to hash our password https://en.wikipedia.org/wiki/Caesar_cipher
-
-var charCodeStart = 65; // charcode for "A"
-var charCodeStart = 65; // charcode for "A"
-
-var alphabet = {
-    plain: function() {
-        var result = [];
-        for(var i = 0; i < 26; i++) {
-            result.push(String.fromCharCode(charCodeStart + i));
-        }
-        return result;
-
-    },
-    cipher: function() {
-        var result = [];
-        for(var i = 0; i < 26; i++) {
-            result.push(String.fromCharCode(charCodeStart + i));
-        }
-        return result;
+// will use a Object (dictionary) lookup for the plain and cipher alphabet
+var ceasar = {
+    plain: {
+        "A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6,  "H": 7,  "I": 8,
+        "J": 0, "K": 1, "L": 2, "M": 3, "N": 4, "O": 5, "P": 6,  "Q": 7,  "R": 8,
+        "S": 0, "T": 1, "U": 2, "V": 3, "W": 4, "X": 5, "Y": 6,  "Z": 7,
     }
-};
-
-function stupidHash(password) {
+function hash(password) {
+    // using Ceasar cipher - Don't use in production
+    var plainStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    var cipherStr = "XYZABCDEFGHIJKLMNOPQRSTUVW".split("");
+    var result = [], arrPass = password.split("");
 }
 function User(name, passwordHash) {
     this.name = name;
