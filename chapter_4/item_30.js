@@ -19,17 +19,33 @@
 
 // make use of Ceasar cipher to hash our password https://en.wikipedia.org/wiki/Caesar_cipher
 // will use a Object (dictionary) lookup for the plain and cipher alphabet
-var ceasar = {
+// PLAIN "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+// CIPHER "XYZABCDEFGHIJKLMNOPQRSTUVW"
+
+var alphabet = {
     plain: {
-        "A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6,  "H": 7,  "I": 8,
-        "J": 0, "K": 1, "L": 2, "M": 3, "N": 4, "O": 5, "P": 6,  "Q": 7,  "R": 8,
-        "S": 0, "T": 1, "U": 2, "V": 3, "W": 4, "X": 5, "Y": 6,  "Z": 7,
+        "A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7,  "H": 8,
+        "I": 9, "J": 10, "K": 11, "L": 12, "M": 13, "N": 14, "O": 15, "P": 16,
+        "Q": 17,  "R": 18, "S": 19, "T": 20, "U": 21, "V": 22, "W": 23,
+        "X": 24, "Y": 25,  "Z": 26
+    },
+    cipher: {
+        "X": 1, "Y": 2,  "Z": 3, "A": 4, "B": 2, "C": 6, "D": 7, "E": 8,
+        "F": 9, "G": 10,  "H": 11, "I": 12, "J": 13, "K": 14, "L": 15, "M": 16,
+        "N": 17, "O": 18, "P": 19, "Q": 20,  "R": 21, "S": 22, "T": 23, "U": 24,
+        "V": 25, "W": 26
     }
+};
+
 function hash(password) {
-    // using Ceasar cipher - Don't use in production
-    var plainStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    var cipherStr = "XYZABCDEFGHIJKLMNOPQRSTUVW".split("");
-    var result = [], arrPass = password.split("");
+    var result = [], arrPass = password.toUpperCase().split("");
+    for(var i = 0; i < arrPass.length; i++) {
+        result.push(
+            alphabet.cipher[
+                arrPass[i]
+            ]
+        );
+    }
 }
 function User(name, passwordHash) {
     this.name = name;
@@ -47,7 +63,7 @@ User.prototype.checkPassword = function(password) {
 };
 
 var u = new User("nkaigi",
-    "0ef33ae791068ec64b502d6cb0191387");
+    "strongpassword");
 
 Object.getPrototypeOf(u) === User.prototype; // true
 
