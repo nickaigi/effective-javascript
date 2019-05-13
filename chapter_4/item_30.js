@@ -37,15 +37,32 @@ var alphabet = {
     }
 };
 
+// ES6
+// read on arrow functions in js
+// (param1, param2) => expression
+// OR
+// param1 => expression
+// OR
+// ()=> expression
+
+
+// The find() method returns the value of the first element in the array that
+// satisfies the provided testing function. Otherwise undefined is returned.
+function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+}
+
+
 function hash(password) {
-    var result = [], arrPass = password.toUpperCase().split("");
+    var result = [];
+    var arrPass = password.toUpperCase().split("");
+    var plainValue, cipherKey;
     for(var i = 0; i < arrPass.length; i++) {
-        result.push(
-            alphabet.cipher[
-                arrPass[i]
-            ]
-        );
+        plainValue = alphabet.plain[arrPass[i]];
+        cipherKey = getKeyByValue(alphabet.cipher, plainValue);
+        result.push(cipherKey);
     }
+    return result.join("");
 }
 function User(name, passwordHash) {
     this.name = name;
@@ -62,8 +79,7 @@ User.prototype.checkPassword = function(password) {
     return hash(password) === this.passwordHash;
 };
 
-var u = new User("nkaigi",
-    "strongpassword");
+var u = new User("nkaigi", "PQOLKDMXPPTLOA");
 
 Object.getPrototypeOf(u) === User.prototype; // true
 
