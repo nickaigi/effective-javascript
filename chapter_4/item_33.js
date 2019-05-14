@@ -1,6 +1,6 @@
 // make your constructors 'new'-Agnostic
 // consider the User constructo
-function User(name passwordHash) {
+function User(name, passwordHash) {
     this.name = name;
     this.passwordHash = passwordHash;
 }
