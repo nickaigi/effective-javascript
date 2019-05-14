@@ -31,3 +31,24 @@ function User(name, passwordHash) {
     this.name = name;
     this.passwordHash = passwordHash;
 }
+
+var x = User("Anne", "BZWUXO");
+var y = User("Nate", "ZZFVBUI");
+
+
+x instanceof User; // true
+y instanceof User; // true
+
+// this approach, requires an extra function call therefore expensive
+// also can't use variadic functions
+
+function User(name, passwordHash) {
+    var self = this instanceof User ? this: Object.create(User.prototype);
+    self.name = name;
+    self.passwordHash = passwordHash;
+    return self;
+}
+
+// 'Object.create' takes a 'prototype' object and returns a new object that
+// inherits from it
+// check book for when ES5 is not supported
