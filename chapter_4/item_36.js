@@ -22,6 +22,9 @@ right.addChild(5);
 right.addChild(7);
 
 // top refers to window.top
+// Where the window.parent property returns the immediate parent of the current
+// window, window.top returns the topmost window in the hierarchy of window objects.
+//
 // top === window.top; // true
 
 var myTop = new Tree(4);
