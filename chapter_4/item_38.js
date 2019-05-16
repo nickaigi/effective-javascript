@@ -34,3 +34,39 @@ Scene.prototype.draw = function() {
         a[i].draw();
     }
 };
+
+// actors inherit from a base 'Actor' class
+function Actor(scene, x, y) {
+    this.scene = scene;
+    this.x = x;
+    this.y = y;
+    scene.register(this);
+}
+
+Actor.prototype.moveTo = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.scene.draw();
+};
+
+Actor.prototype.exit = function() {
+    this.scene.unregister(this);
+    this.scene.draw();
+};
+
+// assume that every actor has a 'type' field that can be used to look up its
+// image in the image table
+
+Actor.prototype.draw = function() {
+    var image = this.scene.images[this.type];
+    this.scene.context.drawImage(image, this.x, this.y);
+};
+
+// determine an actor's size from its image data
+Actor.prototype.width = function() {
+    return this.scene.images[this.type].width;
+};
+
+Actor.prototype.height = function() {
+    return this.scene.images[this.type].height;
+};
