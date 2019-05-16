@@ -40,3 +40,16 @@ CSVReader.prototype.read = function(str) {
 var reader = new CSVReader();
 reader.read("a,b,c\nd,e,f\n");  // [["a", "b ", "c"], ["d", "e", "f"]]
 // results in [Array(3), Array(3)]
+
+
+// what if 'map' did not accept 'this' as an additional argument?
+CSVReader.prototype.read = function(str) {
+    var lines = str.trim().split(/\n/);
+    var self = this; // save a reference to outer this-binding
+    return lines.map(function(line) {
+        return line.split(self.regexp);  // use outer this
+    });
+};
+
+var reader = new CSVReader();
+reader.read("a,b,c\nd,e,f\n");  // [["a", "b ", "c"], ["d", "e", "f"]]
