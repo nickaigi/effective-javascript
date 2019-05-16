@@ -53,3 +53,15 @@ CSVReader.prototype.read = function(str) {
 
 var reader = new CSVReader();
 reader.read("a,b,c\nd,e,f\n");  // [["a", "b ", "c"], ["d", "e", "f"]]
+
+// another approach in ES5 is to use the callback function's 'bind' method
+// like in item 25
+CSVReader.prototype.read = function(str) {
+    var lines = str.trim().split(/\n/);
+    return lines.map(function(line) {
+        return line.split(this.regexp);
+    }.bind(this));  // bind to outer this-binding
+};
+
+var reader = new CSVReader();
+reader.read("a,b,c\nd,e,f\n");  // [["a", "b ", "c"], ["d", "e", "f"]]
