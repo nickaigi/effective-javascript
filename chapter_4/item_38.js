@@ -70,3 +70,10 @@ Actor.prototype.width = function() {
 Actor.prototype.height = function() {
     return this.scene.images[this.type].height;
 };
+
+// we implement specific types of actors as subclasses of 'Actor'
+
+function SpaceShip(scene, x, y) {
+    Actor.call(this, scene, x, y);
+    this.points = 0;
+}
