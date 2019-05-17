@@ -77,3 +77,25 @@ function SpaceShip(scene, x, y) {
     Actor.call(this, scene, x, y);
     this.points = 0;
 }
+
+// In order for 'SpaceShip' to be a proper subclass of 'Actor', its prototype
+// must inherit from 'Actor.prototype'
+// Use ES5 'Object.create'
+
+SpaceShip.prototype = Object.create(Actor.prototype);
+
+SpaceShip.prototype.type = "spaceShip";
+
+SpaceShip.prototype.scorePoint = function() {
+    this.points++;
+};
+
+SpaceShip.prototype.left = function() {
+    this.moveTo(Math.max(this.x - 10, 0 ), this.y);
+};
+
+
+SpaceShip.prototype.right = function() {
+    var maxWidth = this.scene.width - this.width();
+    this.moveTo(Math.min(this.x + 10, maxWidth), this.y);
+};
