@@ -13,3 +13,11 @@ function Dir(path, entries) {
 Dir.prototype = Object.create(Array.prototype);
 // wrong to extend Array
 
+// this approach breaks the expected behavior of the length property of arrays:
+
+var dir = new Dir("/tmp/mysite", ["index.html", "script.js", "style.css"]);
+
+dir.length;   // 0
+
+// fails because 'length' property operates specifically on objects that are
+// marked internally as 'true' arrays
