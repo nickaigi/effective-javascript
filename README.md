@@ -25,3 +25,5 @@ David Herman's [code](https://github.com/effectivejs/code)
 - [Store methods on Prototypes](chapter_4/item_34.js)
 
 - [Monkey-Patching](chapter_4/item_42.js)
+
+- [Lightweight dictionaries](chapter_5/item_43.js)
