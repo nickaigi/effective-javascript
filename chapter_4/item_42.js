@@ -28,3 +28,26 @@ Array.prototype.split = function() { // alternative 2
 
 // RECOMENDED: any library that modifies shared protoypes such as
 // 'Array.prototype' should clearly document that it does so.
+
+function addArrayMethods() {
+    Array.prototype.split = function(i) {
+        return [this.slice(0, i), this.slice(i)];
+    };
+};
+
+// monkey patching is invaluable in providing a 'polyfill'
+// e.g. ES5 defines new Array methods 'forEach', 'map' and 'filter'
+// whose implementation is standardized
+//
+// When you meet with a platform that does not support these methods,
+// you are allowed to implement them following the standardized method
+
+if (typeof Array.prototype.map !== "function") {
+    Array.prototype.map = function(f, thisArg) {
+        var result = [];
+        for (var i = 0, n = this.length; i < n; i++) {
+            result[i] = f.call(thisArg, this[i], i);
+        }
+        return result;
+    };
+}

@@ -23,3 +23,5 @@ David Herman's [code](https://github.com/effectivejs/code)
 - [arguments.callee and arguments.caller](chapter_3/item_29.js)
 
 - [Store methods on Prototypes](chapter_4/item_34.js)
+
+- [Monkey-Patching](chapter_4/item_42.js)
