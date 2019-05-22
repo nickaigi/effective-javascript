@@ -51,4 +51,29 @@ hasOwn.call(dict, "nick");            // true
 
 dict.hasOwnProperty = 10;
 hasOwn.call(dict, "hasOwnProperty");  // true
-hasOwn.call(dict, "alice");           // true
+hasOwn.call(dict, "nick");           // true
+
+// avoid this boilerplate, abstract out this pattern
+
+function Dict(elements) {
+    // allow an optional initial table
+    this.elements = elements || {};  // simple object
+}
+
+Dict.prototype.has = function(key) {
+    // own property only
+    return {}.hasOwnProperty.call(this.elements, key);
+};
+
+Dict.prototype.get = function(key) {
+    // own property only
+    return this.has(key) ? this.elements[key] : undefined;
+};
+
+Dict.prototype.set = function(key, val) {
+    this.elements[key] = val;
+};
+
+Dict.prototype.remove = function(key) {
+    delete this.elements[key];
+};
