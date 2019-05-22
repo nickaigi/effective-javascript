@@ -31,3 +31,7 @@ David Herman's [code](https://github.com/effectivejs/code)
 - [Portable and Safe dictionary](chapter_5/item_45.js)
 
 - [Arrays and Dictionaries](chapter_5/item_46.js)
+
+## Caveat Emptor:
+
+*If you are using a pirated pdf,* ***there be dragons***
