@@ -24,14 +24,13 @@ dict.hasOwnProperty("valueOf");   // false
 
 // we can also guard the lookup with a test
 dict.hasOwnProperty("nick") ? dict.nick : undefined;
-dict.hasOwnProperty(x) ? dict[x] : undefined;
+// dict.hasOwnProperty(x) ? dict[x] : undefined;
 
 // what if we store an entry in the dictionary with the name "hasOwnProperty"
 // then the prototype's method is no longer accessible
 
 dict.hasOwnProperty = 10;
-dict.hasOwnProperty("alice");
-// error: dict.hasOwnProperty is not a function
+// dict.hasOwnProperty("nick"); error: dict.hasOwnProperty is not a function
 
 
 // make no assumptions about 'hasOwnProperty'
@@ -77,3 +76,68 @@ Dict.prototype.set = function(key, val) {
 Dict.prototype.remove = function(key) {
     delete this.elements[key];
 };
+
+var dict = new Dict({
+    nick: 16,
+    son: 32,
+    kaigi: 64
+});
+
+dict.has("nick");    // true
+dict.get("son");     // 32
+dict.has("valueOf"); // false
+
+// '__proto__' can cause pollution problems
+
+var empty = Object.create(null);
+"__proto__" in empty;             // false on my env
+
+var hasOwn = {}.hasOwnProperty;
+hasOwn.call(empty, "__proto__");  // false in my env    
+
+
+var dict = new Dict();
+dict.has("__proto__");  // fasle in my env
+
+// for max portability and safety
+
+function Dict(elements) {
+    this.elements = elements || {};
+    this.hasSpecialProto = false;   // has "__proto__" key?
+    this.specialProto = undefined;  // "__proto__" element
+}
+
+Dict.prototype.has = function(key) {
+    if (key === "__proto__") {
+        return this.hasSpecialProto;
+    }
+    return {}.hasOwnProperty.call(this.elements, key);
+};
+
+Dict.prototype.get = function(key) {
+    if (key === "__proto__") {
+        return this.specialProto;
+    }
+    return this.has(key) ? this.elements[key] : undefined;
+};
+
+Dict.prototype.set = function(key, val) {
+    if (key === "__proto__") {
+        this.hasSpecialProto = true;
+        this.specialProto = val;
+    } else {
+        this.elements[key] = val;
+    }
+};
+
+Dict.prototype.remove = function(key) {
+    if (key === "__proto__") {
+        this.hasSpecialProto = false;
+        this.specialProto = undefined;
+    } else {
+        delete this.elements[key];
+    }
+};
+
+var dict = new Dict();
+dict.has("__proto__");   // false

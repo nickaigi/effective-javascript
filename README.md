@@ -27,3 +27,5 @@ David Herman's [code](https://github.com/effectivejs/code)
 - [Monkey-Patching](chapter_4/item_42.js)
 
 - [Lightweight dictionaries](chapter_5/item_43.js)
+
+- [Portable and Safe dictionary](chapter_5/item_45.js)
