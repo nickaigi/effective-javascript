@@ -29,3 +29,5 @@ David Herman's [code](https://github.com/effectivejs/code)
 - [Lightweight dictionaries](chapter_5/item_43.js)
 
 - [Portable and Safe dictionary](chapter_5/item_45.js)
+
+- [Arrays and Dictionaries](chapter_5/item_46.js)
