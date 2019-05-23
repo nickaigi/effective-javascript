@@ -32,6 +32,8 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 - [Arrays and Dictionaries](chapter_5/item_46.js)
 
+- [Object.defineProperty](chapter_5/item_47.js)
+
 ## Caveat Emptor:
 
 *If you are using a pirated pdf,* ***there be dragons***
