@@ -50,3 +50,50 @@ Member.prototype.inNetwork = function(other) {
 a.inNetwork(f);  // false
 // turns out a 'for...in' loop is not required to keep current with
 // modifications to the object being enumerated
+//
+// version 2
+// uses Dict that we implemented in item_45
+
+function Dict(elements) {
+    this.elements = elements || {};
+    this.hasSpecialProto = false;   // has "__proto__" key?
+    this.specialProto = undefined;  // "__proto__" element
+}
+
+Dict.prototype.has = function(key) {
+    if (key === "__proto__") {
+        return this.hasSpecialProto;
+    }
+    return {}.hasOwnProperty.call(this.elements, key);
+};
+
+Dict.prototype.get = function(key) {
+    if (key === "__proto__") {
+        return this.specialProto;
+    }
+    return this.has(key) ? this.elements[key] : undefined;
+};
+
+Dict.prototype.set = function(key, val) {
+    if (key === "__proto__") {
+        this.hasSpecialProto = true;
+        this.specialProto = val;
+    } else {
+        this.elements[key] = val;
+    }
+};
+
+Dict.prototype.remove = function(key) {
+    if (key === "__proto__") {
+        this.hasSpecialProto = false;
+        this.specialProto = undefined;
+    } else {
+        delete this.elements[key];
+    }
+};
+
+
+function Workset() {
+    this.entries = new Dict();
+    this.count = 0;
+}
