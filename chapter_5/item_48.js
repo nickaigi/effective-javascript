@@ -158,3 +158,37 @@ Member.prototype.inNetwork = function(other) {
     }
     return false;
 };
+
+/*
+ * the 'pick' method is 'nondeterministic'
+ * - given the same input, the output will not always be the same
+ * - source of nondeterminism: 'for...in' loop may choose a different order of
+ *   enumeration in different JavaScript environments.
+ */
+
+
+/* 
+ * It is worth considering a deterministic alternative to a work-set algorithm
+ * Soln. use a work-list algorithm
+ * Sort items into an array instead of a set
+ *
+ */
+
+Member.prototype.inNetwork = function(other) {
+    var visited = {};
+    var worklist = [this];
+    while (worklist.length > 0) {
+        var member = worklist.pop();
+        if (member.name in visited) {
+            continue;
+        }
+        visited[member.name] = member;
+        if (member === other) {
+            return true;
+        }
+        member.friends.forEach(function(friend) {
+            worklist.push(friend);
+        });
+    }
+    return false;
+};
