@@ -97,3 +97,27 @@ function Workset() {
     this.entries = new Dict();
     this.count = 0;
 }
+
+Workset.prototype.isEmpty = function() {
+    return this.count === 0;
+};
+
+Workset.prototype.add = function(key, val) {
+    if (this.entries.has(key)) {
+        return;
+    }
+    this.entries.set(key, val);
+    this.count++;
+};
+
+Workset.prototype.get = function(key) {
+    return this.entries.get(key);
+}
+
+Workset.prototype.remove = function(key) {
+    if (!this.entries.has(key)) {
+        return;
+    }
+    this.entries.remove(key);
+    this.count--;
+};
