@@ -93,16 +93,16 @@ Dict.prototype.remove = function(key) {
 };
 
 
-function Workset() {
+function WorkSet() {
     this.entries = new Dict();
     this.count = 0;
 }
 
-Workset.prototype.isEmpty = function() {
+WorkSet.prototype.isEmpty = function() {
     return this.count === 0;
 };
 
-Workset.prototype.add = function(key, val) {
+WorkSet.prototype.add = function(key, val) {
     if (this.entries.has(key)) {
         return;
     }
@@ -110,14 +110,29 @@ Workset.prototype.add = function(key, val) {
     this.count++;
 };
 
-Workset.prototype.get = function(key) {
+WorkSet.prototype.get = function(key) {
     return this.entries.get(key);
 }
 
-Workset.prototype.remove = function(key) {
+WorkSet.prototype.remove = function(key) {
     if (!this.entries.has(key)) {
         return;
     }
     this.entries.remove(key);
     this.count--;
+};
+
+// pick an arbitrary element of the the set
+
+Dict.prototype.pick = function() {
+    for (var key in this.elements) {
+        if (this.has(key)) {
+            return key;
+        }
+    }
+    throw new Error("empty dictionary");
+};
+
+WorkSet.prototype.pick = function() {
+    return this.entries.pick();
 };
