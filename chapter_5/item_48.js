@@ -136,3 +136,25 @@ Dict.prototype.pick = function() {
 WorkSet.prototype.pick = function() {
     return this.entries.pick();
 };
+
+Member.prototype.inNetwork = function(other) {
+    var visited = {};
+    var workset = new WorkSet();
+    workset.add(this.name, this);
+    while (!workset.isEmpty()) {
+        var name = workset.pick();
+        var member = workset.get(name);
+        workset.remove(name);
+        if (name in visited) {
+            continue;
+        }
+        visited[name] = member;
+        if (member === other) {
+            return true;
+        }
+        memember.friends.forEach(function(friend) {
+            workset.add(friend.name, friend);
+        });
+    }
+    return false;
+};
