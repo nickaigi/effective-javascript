@@ -34,6 +34,8 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 - [Object.defineProperty](chapter_5/item_47.js)
 
+- [Prefer iteration methods to loops](chapter_5/item_50.js)
+
 ## Caveat Emptor:
 
 *If you are using a pirated pdf,* ***there be dragons***

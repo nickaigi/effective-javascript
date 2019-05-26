@@ -74,3 +74,52 @@ function takeWhile(a, pred) {
 var prefix = takeWhile([1, 2, 3, 4, 8, 16, 32], function(n) {
     return n < 10;
 });  // [1, 2, 3, 4, 8]
+
+/* loops are better than iteration functions for abnormal control flow
+ * operations such as 'break' and 'continue'
+ *
+ * It would be akward to attempt to implement 'takeWhile' using 'forEach'
+ *
+ * We could use an internal exception to implement the early termination of
+ * the loop, but this would be awkward and likely inefficient
+ *
+ * Once an abstraction becomes more verbose than the code it is replacing,
+ * it's pretty sure sighn that the cure is worse than the disease.
+ *
+ * Alternatively, ES5 array methods 'some' and 'every' can be usedd as loops
+ * that may terminate early... but they were not created for this purpose.
+ *
+ *
+ * 'some' returns a boolean indicating whether its callback returns a 'truthy'
+ * value for any one of the array elements
+ */
+
+[1, 10, 100].some(function(x) { return x > 5; });  // true
+[1, 10, 100].some(function(x) { return x < 0; });  // false
+
+/* 'every' returns a boolean indicating whether its callback returns a 'truthy'
+ * value for all of the elements:
+ */
+
+[1, 2, 3, 4, 5].every(function(x) { return x > 0; });  // true
+[1, 2, 3, 4, 5].every(function(x) { return x < 3; });  // false
+
+/* both 'some' and 'every' are 'short-circuiting':
+ * - 'some' returns immediately without processing any more elements once any
+ * element produces a 'truthy' value
+ * - 'every' returns immediately if its callback produces a 'falsy' value
+ *
+ * This behavior makes these methods useful as a variant of 'forEach' that can
+ * terminate early.
+ */
+function takeWhile(a, pred) {
+    var result = [];
+    a.every(function(x, i) {
+        if (!pred(x)) {
+            return false;  // break
+        }
+        result[i] = x;
+        return true;  // continue
+    });
+    return result;
+}
