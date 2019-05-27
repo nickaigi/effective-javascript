@@ -36,6 +36,8 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 - [Prefer iteration methods to loops](chapter_5/item_50.js)
 
+- [Reuse generic array methods on Array-Like objects](chapter_5/item_51.js)
+
 ## Caveat Emptor:
 
 *If you are using a pirated pdf,* ***there be dragons***
