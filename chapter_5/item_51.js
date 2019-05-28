@@ -52,5 +52,10 @@ namesColumn("Alice", "Bob", "Chris");
 //
 // ["Names", { 0: "Alice", 1: "Bob", 2: "Chris" }]
 //
-// I think that it should return
+// I expected:
 // ["Names, ["A", "B", "C"]]
+function namesColumn() {
+    return ["Names"].concat([].slice.call(arguments));
+}
+
+namesColumn("Alice", "Bob", "Chris");  //  ["Names", "Alice", "Bob", "Chris"]
