@@ -24,3 +24,12 @@ function f(x) {
 }
 
 f();  // undefined
+
+/* example: a library of user interface elements might support a 'highlight'
+ * method for changing the background color of an element
+ */
+
+element.highlight();          // use the default color
+element.highlight("yellow");  // use a custom color
+
+/* what if we wanted to provide a way to request a random color?
