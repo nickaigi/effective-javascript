@@ -36,6 +36,8 @@ Element.prototype.highlight = function(color) {
     this.color = color;
 };
 
+var element = new Element();
+
 element.highlight();          // use the default color
 element.highlight("yellow");  // use a custom color
 
@@ -92,3 +94,64 @@ function Server(port, hostname) {
 // when provided an explicit argument by requesting a value from another source
 // such as a configuration object, it might produce 'undefined'
 var s3 = new Server(80, config.hostname);
+// if config doesn't provide a hostname, the above implementation ends with
+// hostname 'undefined'
+// Book says: its better to test for 'undefined'
+
+function Server(port, hostname) {
+    if (hostname === undefined) {
+        hostname = "localhost";
+    }
+    hostname = String(hostname);
+    // ...
+}
+
+// one can test whether hostname is truthy
+function Server(port, hostname) {
+    hostname = String(hostname || "localhost");
+    // ...
+}
+/* logical OR ||
+ * returns the first argument if it is a truthy value and otherwise returns the
+ * second argument
+ *
+ * BEWARE: Truthiness is not always a safe test. If a function should accept
+ * the empty string as a legal value, a truthy test will override the empty
+ * string and replace it with the default value.
+ *
+ * Similarly, function that accepts a number should not use a truthy test if it
+ * allows 0 (or NaN, although it's less common) as an acceptable value.
+ */
+
+var c1 = new Element(0, 0);  // width: 0, height: 0
+var c2 = new Element();      // width: 320, height: 240;
+
+function Element(width, height) {
+    this.width = width || 320;    // wrong test
+    this.height = height || 240;  // wrong test
+    // ...
+}
+
+var c1 = new Element(0, 0);
+c1.width;   // 320
+c1.height;  // 240
+
+/* wrong values, we explicitly set our values to 0
+ * Soln. use a mover verbose test for undefined
+ */
+
+function Element(width, height) {
+    this.width = width === undefined ? 320: width;
+    this.height = height === undefined ? 240: height;
+    // ...
+}
+
+var c1 = new Element(0, 0);
+
+c1.width;   // 0
+c1.height;  // 0
+
+var c2 = new Element();
+
+c2.width;   // 320
+c2.height;  // 240
