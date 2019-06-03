@@ -31,3 +31,15 @@ BitVector.prototype.enable = function(x) {
         }
     }
 };
+
+/* how do we distinguish between arrays and objects?
+ * JavaScript 'array's are objects
+ * What we want really want to do is separate out array objects from
+ * nonarray objects
+ */
+
+dimensions.add({
+    "length": 1, // implies array-like??
+    "height": 1,
+    "width": 1
+});
