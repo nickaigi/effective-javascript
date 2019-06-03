@@ -46,3 +46,31 @@ c.fillStyle = "blue";
 c.fillText("text 2", 50, 90);  // blue
 c.fillStyle = "black";
 c.fillText("text 3", 50, 120);  // blue
+
+/* using an INI file to demonstrate:
+ *
+ * [Host]
+ * address=172.0.0.1
+ * name=localhost
+ * [Connections]
+ * timeout=10000
+ *
+ */
+
+// a statefull approach might provide a 'setSection' method
+var ini = INI.parse(src);
+ini.setSection("Host");
+var addr = ini.get("address");
+var hostname = init.get("name");
+
+ini.setSection("Connection");
+var timeout = ini.get("timeout");
+var server = new Server(addr, hostname, timeout);
+
+// a stateless API approach
+
+var ini = INI.parse(src);
+var server = new Server(ini.Host.address,
+                        ini.Host.name,
+                        ini.Connection.timeout);
+
