@@ -90,3 +90,14 @@ function MyClass() {
 MyClass.prototype.update = function() {
     this.keys.add([].slice.call(arguments));
 };
+
+/* MDN recommends you use this pollyfil if you find that your env doesn't have
+ * Array.isArray
+ *
+ * Same as what is recommended by the book
+ */
+if (!Array.isArray) {
+  Array.isArray = function(arg) {
+    return Object.prototype.toString.call(arg) === "[object Array]";
+  };
+}
