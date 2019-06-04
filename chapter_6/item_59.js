@@ -25,3 +25,23 @@ BitVector.prototype.enable = function(x) {
         }
     }
 };
+
+/* as a general rule, it's wise to avoid coercing arguments whose tyype is used
+ * to determine an overloaded function's behavior.
+ */
+
+bits.enable("100");  // number or array-like? ambiguous
+
+// we could enforce tht only numbers and objects are accepted
+
+BitVector.prototype.enable = function(x) {
+    if (typeof x === "number") {
+        this.enableBit(x);
+    } else if (typeof x === "object" && x) {
+        for (var i = 0, n = x.length; i < n; i++) {
+            this.enableBit(x[i]);
+        }
+    } else {
+        throw new TypeError("expected number or array-like");
+    }
+}; // book omits this semi-colon 4th June 2019
