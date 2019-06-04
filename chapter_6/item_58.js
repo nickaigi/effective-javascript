@@ -57,3 +57,36 @@ StringSet.prototype.add = function(x) {
         }
     }
 };
+
+// soln. ES5 has 'Array.isArray'
+StringSet.protototype.add = function(x) {
+    if (typeof x === "string") {
+        this.addString(x);
+    } else if (Array.isArray(x)) {  // tests for true arrays
+        x.forEach(function(s) {
+            this.addString(s);
+        }, this);
+    } else {
+        for (var key in x) {
+            this.addString(key);
+        }
+    }
+};
+
+// if your env doesn't support ES5, you can use the standard
+// 'Object.prototype.toString' method to test whether an object is an array
+
+var toString = Object.prototype.toString;
+
+function.isArray(x) {
+    return toString.call(x) === "[object Array]";
+}
+
+function MyClass() {
+    this.keys = new StringSet();
+    // ...
+}
+
+MyClass.prototype.update = function() {
+    this.keys.add([].slice.call(arguments));
+};
