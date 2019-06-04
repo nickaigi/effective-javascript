@@ -43,3 +43,17 @@ dimensions.add({
     "height": 1,
     "width": 1
 });
+
+StringSet.prototype.add = function(x) {
+    if (typeof x === "string") {
+        this.addString(x);
+    } else if (x instanceof Array) { // too restrictive
+        x.forEach(function(s) {
+            this.addString(s);
+        }, this);
+    } else {
+        for (var key in x) {
+            this.addString(key);
+        }
+    }
+};
