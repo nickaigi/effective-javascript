@@ -38,6 +38,8 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 - [Reuse generic array methods on Array-Like objects](chapter_5/item_51.js)
 
+- [Prefer Stateless APIs](chapter_6/item_56.js)
+
 ## Caveat Emptor:
 
 *If you are using a pirated pdf,* ***there be dragons***
