@@ -39,3 +39,46 @@ var users = records.map(function(record) {
                         return username.toLowerCase();
                     });
 
+/* takes an array of user records
+ * - extracts the username property of each
+ *   record
+ * - filters out any empty usernames
+ * - converts the usernames to lower-case strings
+ */ 
+
+/* in a stateful setting, design your methods that update an object to return
+ * 'this' instead of 'undefined' making it possible to perform multiple updates
+ * on the same object via a sequence of chanined method calls
+ */
+
+element.setBackgroundColor("yellow")
+       .setColor("red")
+       .setFontWeight("bold");
+
+/* method chaining for stateful API is sometimes know as the 'fluent style'
+ */
+
+/* when combining stateless methods that retrieve objects with update methods,
+ * method chaining can make for very concise and readable code. jQuery
+ * popularized this approach with a set of (stateless) methods for "querying"
+ * a web page for UI elements and a set of (stateful) methods for updating
+ * those elements
+ */
+
+$("#notification")                 // find notification element
+    .html("Server not responding") // set notification msg
+    .removeClass("info")           // remove one set of styling
+    .addClass("error");            // add more styling
+
+/* the following stateful calls
+ *  - html
+ *  - removeClass
+ *  - addClass
+ * support the fluent style by returning the same object
+ */
+
+// for users uncomfortable with stylish code
+var element = $("#notification");
+element.html("Server not responding");
+element.removeClass("info");
+element.addClass("error");
