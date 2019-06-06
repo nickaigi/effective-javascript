@@ -26,3 +26,16 @@ function escapeBasicHTML(str) {
  * code that the intermediate results are only important as a step along the
  * way to the final result
  */
+
+// another example
+
+var users = records.map(function(record) {
+                        return record.username;
+                    })
+                    .filter(function(username) {
+                        return !!username;
+                    })
+                    .map(function(username) {
+                        return username.toLowerCase();
+                    });
+
