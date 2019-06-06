@@ -40,6 +40,8 @@ David Herman's [code](https://github.com/effectivejs/code)
 
 - [Prefer Stateless APIs](chapter_6/item_56.js)
 
+- [Support Method Chaining](chapter_6/item_60.js)
+
 ## Caveat Emptor:
 
 *If you are using a pirated pdf,* ***there be dragons***
