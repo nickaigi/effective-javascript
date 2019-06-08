@@ -16,3 +16,11 @@ db.lookupAsync("url", function(url) {
 downloadAsync(url, function(text) { // error: url is not bound
     console.log("contents of " + url + ": " + text);
 });
+
+// can't work
+
+db.lookupAsync("url", function(url) {
+    downloadAsync(url, function(text) {
+        console.log("contentes of " + url + ": " + text);
+    });
+});
