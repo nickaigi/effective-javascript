@@ -61,3 +61,48 @@ function downloadURL(url) {
 function showContents(url, text) {
     console.log("contents of " + url ": " + text);
 }
+
+/* still using a nested callback inside 'downloadURL' in order to combine the
+ * the outer 'url' variable with the inner 'text' variable as arguments to 'showContents'
+ * We can eliminate this last nested callback wih the bind (item 25)
+ */
+
+db.lookupAsync("url", downloadURL);
+
+function downloadURL(url) {
+    downloadAsync(url, showContents.bind(null, url));
+}
+
+function showContents(url, text) {
+    console.log("contents of " + url ": " + text);
+}
+
+// it is better to sometimes combine the the approaches to stike a better
+// balance
+
+db.lookupAsync("url", function(url) {
+    downloadURLAndFiles(url);
+});
+
+function downloadURLAndFiles(url) {
+    downloadAsync(url, downloadFiles.bind(null, url));
+}
+
+function downloadFiles(url, file) {
+    downloadAsync("a.txt", function(a) {
+        downloadAsync("b.txt", function(b) {
+            downloadAsync("c.txt", function(c) {
+                // ..
+             });
+         });
+     });
+}
+
+// can be improved
+
+function downloadFiles(url, file) {
+    downloadAllAsync(["a.txt", "b.txt", "c.txt"], function(all) {
+        var a = all[0], b = all[1], c = all[2];
+        // ...
+    });
+}
