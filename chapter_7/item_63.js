@@ -52,3 +52,55 @@ downloadAsync(["a.txt", "b.txt", "c.txt"], function(abc) {
 }, function(error) {
     console.log("Error: " + error);
 });
+
+/* Node.js popularized a style of error-handling API
+ * takes only a single callback whose first argument is either an error,
+ * if one occurred, or a falsy value such as 'null' otherwise.
+ */
+
+function onError(error) {
+    console.log("Error: " + error);
+}
+
+downloadAsync("a.txt", function(error, a) {
+    if (error) {
+        onError(error);
+        return;
+    }
+    downloadAsync("b.txt", function(error, b) {
+        // duplicated error-checking logic
+        if (error) {
+            onError(error);
+            return;
+        }
+        downloadAsync(url3, function(error, c) {
+            // another error-checking logic
+            if (error) {
+                onError(error);
+                return;
+            }
+            console.log("Contents: " + a + b + c);
+        });
+    });
+});
+
+// we can abandon conventions associated with 'if' statements
+
+function onError(error) {
+    console.log("Error: " + error);
+}
+
+downloadAsync("a.txt", function(error, a) {
+    if (error) return onError(error);
+
+    downloadAsync("b.txt", function(error, b) {
+        if (error) return onError(error);
+
+        downloadAsync(url3, function(error, b) {
+            if (error) return onError(error);
+
+            console.log("Contents: " + a + b + c);
+        });
+    });
+});
+
