@@ -116,3 +116,7 @@ downloadAsync(filenames, function(error, abc) {
     }
     console.log("Contests: " + abc[0] + abc[1] + abc[2]);
 });
+
+/* take aways:
+ * Avoid copying and pasting error-handling code by writing shared error-handling functions
+ */
