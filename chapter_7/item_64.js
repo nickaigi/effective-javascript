@@ -45,3 +45,16 @@ function downloadOneAsync(urls, onsuccess, onfailure) {
 
     tryNextURL(0);
 }
+
+// local tryNextURL function is 'recursive'
+// to many recursive calls can max out the stack
+
+function countdown(n) {
+    if (n === 0) {
+        return "done";
+    } else {
+        return countdown(n - 1);
+    }
+}
+
+countdown(100000);  // error: max call stack size exceeded
