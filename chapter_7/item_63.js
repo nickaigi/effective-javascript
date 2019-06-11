@@ -104,3 +104,15 @@ downloadAsync("a.txt", function(error, a) {
     });
 });
 
+
+// taking a DRY approach
+
+var filenames = ["a.txt", "b.txt", "c.txt"];
+
+downloadAsync(filenames, function(error, abc) {
+    if (error) {
+        console.log("Error: " + error);
+        return;
+    }
+    console.log("Contests: " + abc[0] + abc[1] + abc[2]);
+});
