@@ -58,3 +58,22 @@ function countdown(n) {
 }
 
 countdown(100000);  // error: max call stack size exceeded
+
+// how can the recursive 'downloadOneAsync' be safe?
+
+/* JavaScript envs usually reserve a fixed amount of space in memory known as
+ * the 'call stack' to keep track of what to do next after returning from
+ * function calls
+ */
+function negative(x) {
+    return abs(x) * -1;
+}
+
+function abs(x) {
+    return Math.abs(x);
+}
+
+console.log(negative(42));
+
+// refer to book for reasons why 'downloadOneAsync' never hits a stack overflow
+// unlike 'countdown'
