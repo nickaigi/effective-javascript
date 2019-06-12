@@ -93,3 +93,40 @@ function downloadAllAsync(urls, onsuccess, onerror) {
         });
     });
 }
+
+downloadAllAsync(["huge.txt", "medium.txt", "tiny.txt"]);
+
+// correct implementation
+
+function downloadAllAsync(urls, onsuccess, onerror) {
+    var pending = urls.length;
+    var result = [];
+
+    if (pending === 0) {
+        setTimeout(onsuccess.bind(null, result), 0);
+        return;
+    }
+
+    urls.forEach(function(url, i) {
+        downloadAsync(url, function(text) {
+            if (result) {
+                result[i] = text; // store at fixed index
+                pending--;        // register the sucess
+                if (pending === 0) {
+                    onsuccess(result);
+                }
+            }
+        }, function(error) {
+            if (result) {
+                result = null;
+                onerror(error);
+            }
+        });
+    });
+}
+
+
+/* take aways:
+ * 1. events occur in an unpredictable order
+ * 2. use a counter to avoid data races in concurrent operations
+ */
