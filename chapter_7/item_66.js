@@ -58,4 +58,38 @@ downloadAllAsync(filenames, function(files) {
  *
  * So 'downloadAllAsync' produces an array containing downloaded files stored in
  * an unknown order
+ *
+ * Soln. implement 'downloadAllAsync' so tht it always produces predictable
+ * results regardless of the unpredictable order of events.
+ *
+ * Instead of pushing each result onto the end of the array, we store it at its
+ * original index
  */
+
+function downloadAllAsync(urls, onsuccess, onerror) {
+    var length = urls.length;
+    var result = [];
+
+    if (length === 0) {
+        setTimeout(onsuccess.bind(null, result), 0);
+        return;
+    }
+
+    urls.forEach(function(url, i) {
+        downloadAsync(url, function(text) {
+            if (result) {
+                result[i] = text; // store as fixed index
+
+                // race condition
+                if (result.length === urls.length) {
+                    onsuccess(result);
+                }
+            }
+        }, function(error) {
+            if (result) {
+                result = null;
+                onerror(error);
+            }
+        });
+    });
+}
