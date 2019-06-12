@@ -90,3 +90,38 @@ downloadAsync("file2.txt", function(file) {
 /* promises avoid this kind of bug because the style of concisely composing
  * promises avoids modifying shared data.
  */
+
+/* error handling is automatically propagated throught promises.
+ * when you chain a collection of asynchronous operations together through
+ * promises, you can provide a single error callback for the entire sequence,
+ * rather than passing an error callback to every step as in the code in
+ * item 63
+ */
+
+
+/* an application may need to try downloading the same file simultaneously
+ * from several different servers and take whichever completes first.
+ *
+ * The 'select' or 'choose' utility takes several promises and produces a
+ * whose value is whichever result becomes first available.
+ * It "race" several promises against one another
+ */
+
+var fileP = select(downloadP("http://example1.com/file.txt"),
+                   downloadP("http://example2.com/file.txt"),
+                   downloadP("http://example3.com/file.txt"));
+
+fileP.then(function(file) {
+    console.log("file: " + file);
+});
+
+// another use of 'select' is to provide timeouts to abort operations that take
+// too long
+
+var fileP = select(downloadP("file.txt"), timeoutErrorP(2000));
+
+fileP.then(function(file) {
+    console.log("file: " + file);
+}, function(error) {
+    console.log("I/O error or timeout: " + error);
+});
