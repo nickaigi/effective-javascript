@@ -36,3 +36,17 @@ downloadCachingAsync(remaining[0], function(file) {
 });
 
 status.display("Downloading " + remaining[0] + "...");
+
+var cache = new Dict();
+
+function downloadCachingAsync(url, onsuccess, onerror) {
+    if (cache.has(url)) {
+        var cached = cache.get(url);
+        setTimout(onsuccess.bind(null, cached), 0);
+        return;
+    }
+    return downloadAsync(url, function(file) {
+        cache.set(url, file);
+        onsuccess(file);
+    }, onerror);
+}
